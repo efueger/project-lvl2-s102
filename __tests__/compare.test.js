@@ -1,4 +1,4 @@
-import gendiff from '../src/bin/gendiff';
+import gendiff from '../src';
 import fs from 'fs';
 
 test('compare', () => {
