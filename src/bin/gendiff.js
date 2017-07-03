@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import compareFiles from '../compare-files';
+import compare from '../compare';
 
 program.version('0.0.3')
   .usage('[options] <firstConfig> <secondConfig>')
@@ -9,4 +9,4 @@ program.version('0.0.3')
   .option('-f, --format [type]', 'Output format')
   .parse(process.argv);
 
-export default compareFiles;
+export default compare;
