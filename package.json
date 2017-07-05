@@ -2,7 +2,7 @@
   "name": "gendiff-ivan",
   "version": "0.0.4",
   "description": "Compares two configuration files and shows a difference.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "babel-node": "babel-node",
@@ -29,7 +29,8 @@
   },
   "homepage": "https://github.com/HardAndHeavy/project-lvl2-s102#readme",
   "dependencies": {
-    "commander": "2.x"
+    "commander": "2.x",
+    "lodash": "4.x"
   },
   "devDependencies": {
     "babel-cli": "",

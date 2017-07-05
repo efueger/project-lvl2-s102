@@ -1,13 +1,22 @@
-import program from 'commander';
-import compare from './compare';
-import pjson from '../package.json';
+import fs from 'fs';
+import _ from 'lodash';
 
-export const cli = () =>
-  program.version(pjson.version)
-    .arguments('<firstConfig> <secondConfig>')
-    .action((firstConfig, secondConfig) => console.log(compare(firstConfig, secondConfig)))
-    .description(pjson.description)
-    .option('-f, --format [type]', 'Output format')
-    .parse(process.argv);
+export default (fileBefore, fileAfter) => {
+  const objBefore = JSON.parse(fs.readFileSync(fileBefore));
+  const objAfter = JSON.parse(fs.readFileSync(fileAfter));
 
-export default compare;
+  const compare = _.union(Object.keys(objBefore), Object.keys(objAfter))
+    .reduce((acc, key) => {
+      if (objBefore[key] === objAfter[key]) {
+        return acc.concat(`  ${key}: ${objBefore[key]}`);
+      } else if (!objBefore[key]) {
+        return acc.concat(`+ ${key}: ${objAfter[key]}`);
+      } else if (!objAfter[key]) {
+        return acc.concat(`- ${key}: ${objBefore[key]}`);
+      }
+      return acc.concat(`+ ${key}: ${objAfter[key]}`,
+        `- ${key}: ${objBefore[key]}`);
+    }, []);
+
+  return `{\n  ${compare.join('\n  ')}\n}`;
+};

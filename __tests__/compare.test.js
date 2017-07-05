@@ -1,9 +1,9 @@
 import gendiff from '../src';
 import fs from 'fs';
 
-test('compare', () => {
-  const fileBefore = '__tests__/compareBefore';
-  const fileAfter = '__tests__/compareAfter';
-  const result = fs.readFileSync('__tests__/compareResult').toString();
+test('Compare JSON files', () => {
+  const fileBefore = '__tests__/compare-json-before';
+  const fileAfter = '__tests__/compare-json-after';
+  const result = fs.readFileSync('__tests__/compare-json-result').toString();
   expect(gendiff(fileBefore, fileAfter)).toBe(result);
 });
