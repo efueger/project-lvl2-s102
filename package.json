@@ -1,6 +1,6 @@
 {
   "name": "gendiff-ivan",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Compares two configuration files and shows a difference.",
   "main": "dist/index.js",
   "scripts": {
@@ -30,7 +30,8 @@
   "homepage": "https://github.com/HardAndHeavy/project-lvl2-s102#readme",
   "dependencies": {
     "commander": "2.x",
-    "lodash": "4.x"
+    "lodash": "4.x",
+    "js-yaml": "3.x"
   },
   "devDependencies": {
     "babel-cli": "",

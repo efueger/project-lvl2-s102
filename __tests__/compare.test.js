@@ -7,3 +7,10 @@ test('Compare JSON files', () => {
   const result = fs.readFileSync('__tests__/compare/json/result.txt').toString();
   expect(gendiff(fileBefore, fileAfter)).toBe(result);
 });
+
+test('Compare YAML files', () => {
+  const fileBefore = '__tests__/compare/yaml/before.yaml';
+  const fileAfter = '__tests__/compare/yaml/after.yaml';
+  const result = fs.readFileSync('__tests__/compare/yaml/result.txt').toString();
+  expect(gendiff(fileBefore, fileAfter)).toBe(result);
+});

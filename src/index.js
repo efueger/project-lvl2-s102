@@ -1,9 +1,28 @@
 import fs from 'fs';
+import path from 'path';
+
+import yaml from 'js-yaml';
+
 import _ from 'lodash';
 
+const getParseMethod = (file) => {
+  const ext = path.extname(file).toLowerCase();
+  switch (ext) {
+    case '.json':
+      return JSON.parse;
+    case '.yaml':
+      return yaml.safeLoad;
+    default:
+      throw new Error(`Extension ${ext} not supported`);
+  }
+};
+
+const getObject = file =>
+  getParseMethod(file)(fs.readFileSync(file));
+
 export default (fileBefore, fileAfter) => {
-  const objBefore = JSON.parse(fs.readFileSync(fileBefore));
-  const objAfter = JSON.parse(fs.readFileSync(fileAfter));
+  const objBefore = getObject(fileBefore);
+  const objAfter = getObject(fileAfter);
 
   const compare = _.union(Object.keys(objBefore), Object.keys(objAfter))
     .reduce((acc, key) => {
