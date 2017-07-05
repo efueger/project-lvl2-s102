@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import yaml from 'js-yaml';
+import ini from 'ini';
 
 import _ from 'lodash';
 
@@ -12,13 +13,15 @@ const getParseMethod = (file) => {
       return JSON.parse;
     case '.yaml':
       return yaml.safeLoad;
+    case '.ini':
+      return ini.decode;
     default:
       throw new Error(`Extension ${ext} not supported`);
   }
 };
 
 const getObject = file =>
-  getParseMethod(file)(fs.readFileSync(file));
+  getParseMethod(file)(fs.readFileSync(file).toString());
 
 export default (fileBefore, fileAfter) => {
   const objBefore = getObject(fileBefore);
