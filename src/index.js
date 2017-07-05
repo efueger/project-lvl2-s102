@@ -6,8 +6,8 @@ import ini from 'ini';
 
 import _ from 'lodash';
 
-const getParseMethod = (file) => {
-  const ext = path.extname(file).toLowerCase();
+const getParseMethod = (pathname) => {
+  const ext = path.extname(pathname).toLowerCase();
   switch (ext) {
     case '.json':
       return JSON.parse;
@@ -20,12 +20,12 @@ const getParseMethod = (file) => {
   }
 };
 
-const getObject = file =>
-  getParseMethod(file)(fs.readFileSync(file).toString());
+const getObject = pathname =>
+  getParseMethod(pathname)(fs.readFileSync(pathname).toString());
 
-export default (fileBefore, fileAfter) => {
-  const objBefore = getObject(fileBefore);
-  const objAfter = getObject(fileAfter);
+export default (pathBefore, pathAfter) => {
+  const objBefore = getObject(pathBefore);
+  const objAfter = getObject(pathAfter);
 
   const compare = _.union(Object.keys(objBefore), Object.keys(objAfter))
     .reduce((acc, key) => {
